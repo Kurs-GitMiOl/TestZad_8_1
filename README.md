@@ -1,33 +1,33 @@
 # Zad 8.1 Iris ML API
 
-## Project description
+## 1. Project description
 
 The project shows a simple AI system shared as a FastAPI web service.
 The system uses a previously trained classification model
 to predict the Iris flower species based on given features.
 
-## Used model
+## 2. Used model
 - Type: SVM Classifier (Support Vector Machine
 - Pipeline: 
 StandardScaler() – scales the input features 
 SVC(kernel='linear', probability=True) – linear SVM classifier with probability output
 - Library: scikit-learn
 
-## Input Data from dataset
+## 2. Input Data from dataset
 Features:
 - sepal_length – float
 - sepal_width – float
 - petal_length – float
 - petal_width – float
 
-## Used technologies
+## 3. Used technologies
 - Python
 - scikit-learn
 - FastAPI
 - uv
 - Git
 
-## Installation and run
+## 4. Installation and run
 
 - open the terminal and go to the project folder
 - create a virtual environment: python -m venv .venv
@@ -37,11 +37,11 @@ Features:
 - the API will be available at: http://127.0.0.1:8000
 - open the API documentation at: http://127.0.0.1:8000/docs
 
-## Requirements
+## 5. Requirements
 - Python 3.10+
 - uv
 
-# Endpoints description and examples
+# 6. Endpoints description and examples
 
 - Endpoint `/predict`
 
@@ -209,3 +209,17 @@ Response:
   "max": 5.4,
   "mean": 2.6500000000000004
 }
+
+## 7.  Tests
+This project includes basic tests for all main endpoints of application.
+The tests are written using pytest and FastAPI’s TestClient.
+
+- POST /predict – checks prediction_class and prediction_name
+- POST /predict_proba – checks probabilities for each class and that they sum to ~1
+- POST /describe_input – checks min, max, mean values.
+- POST /describe_input_invalid – sends wrong data and checks the API returns 422 error
+- GET /describe_input_get – checks min, max, mean values from query parameters
+
+How to run tests:
+- Install dependencies including pytest: pip install pytest
+- Run all tests: pytest

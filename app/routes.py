@@ -9,7 +9,7 @@ from pathlib import Path
 
 # Load the pre-trained model safely regardless of current working directory
 # Loads the trained model safely, no matter the current folder
-# __file__ = actual plik (main.py)
+
 
 MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.joblib"
 print("Loading model from:", MODEL_PATH)

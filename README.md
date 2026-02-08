@@ -13,7 +13,6 @@ do przewidywania gatuneku kwiatu Iris na podstawie podanych cech.
 - Git
 
 ## Instalacja i uruchomienie
-
 - otwórz terminal i przejść do folderu z plikmi projektu
 - utwórz srodowisko wirtualne: python -m venv .venv
 - aktywuj je:     .venv\Scripts\activate

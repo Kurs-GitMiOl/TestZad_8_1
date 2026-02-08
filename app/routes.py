@@ -1,5 +1,4 @@
 # Imports
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi import APIRouter
@@ -16,15 +15,13 @@ MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.jobl
 print("Loading model from:", MODEL_PATH)
 model = joblib.load(MODEL_PATH)
 
-
 app = FastAPI(title="Iris Zad 8.1")
 
 
-
 # Create router
-router = APIRouter()    # po przeniesieniu do osobnego pliku
+router = APIRouter()
 
-# Schemat danych wejściowych
+
 # Input data schema
 class IrisInput(BaseModel):
     sepal_length: float
@@ -32,7 +29,7 @@ class IrisInput(BaseModel):
     petal_length: float
     petal_width: float
 
-# Endpoint predykcyjny @app przed przeniesieniem do routes
+
 @router.post("/predict")
 def predict(data: IrisInput):
     """
@@ -57,7 +54,7 @@ def predict(data: IrisInput):
         "prediction_name": target_names[prediction]
     }
 
-# zwraca podstawowe statystyki wprowadzonych cech
+
 @router.post("/describe_input")
 def describe_input(data: IrisInput):
     """
@@ -73,9 +70,6 @@ def describe_input(data: IrisInput):
     }
 
 
-
-# Zwraca prawdopodobieństwo przynależności do każdej klasy kwiatu Iris,
-# zamiast tylko jednej przewidywanej klasy.
 @router.post("/predict_proba")
 def predict_proba(input: IrisInput):
     """
@@ -98,21 +92,8 @@ def predict_proba(input: IrisInput):
         "virginica": float(probabilities[2])
     }
 
-    # kod do usunuiecia bo nie ma sprawdzania jezeli sam sobie piszę resztę kodu
-    # # Sprawdzenie, czy model wspiera predict_proba
-    # if hasattr(model, "predict_proba"):
-    #     probabilities = model.predict_proba(features)[0]
-    #     return {
-    #         "setosa": float(probabilities[0]),
-    #         "versicolor": float(probabilities[1]),
-    #         "virginica": float(probabilities[2])
-    #     }
-    # else:
-    #     return {"error": "Model nie wspiera predict_proba"}
 
 
-#bez wysyłania body JSON, można go wywołać bezpośrednio w przeglądarce
-# przykład http://127.0.0.1:8000/describe_input_get?sepal_length=6.0&sepal_width=2.8&petal_length=4.5&petal_width=1.5
 @router.get("/describe_input_get")
 def describe_input_get(sepal_length: float, sepal_width: float, petal_length: float, petal_width: float):
     """

@@ -13,19 +13,15 @@ do przewidywania gatuneku kwiatu Iris na podstawie podanych cech.
 - Git
 
 ## Instalacja i uruchomienie
-- uruchom swoje środowisko Python
-    uv venv
-    uv sync
-  
-- opcionalnie  
-    python -m venv .venv
-    source .venv/bin/activate   # Linux/macOS
-    .venv\Scripts\activate      # Windows
-    pip install .
-- wytrenuj model  - python train_model.py
-- uruchom API - app.main:app --reload
-  Api bedzie dostępne po linkem http://127.0.0.1:8000
-- przejdz do API documentation http://127.0.0.1:8000/docs
+
+- otwórz terminal i przejść do folderu z plikmi projektu
+- utwórz srodowisko wirtualne: python -m venv .venv
+- aktywuj je:     .venv\Scripts\activate
+- zainstaluj zależności: uv sync
+- uruchom serwer FastAPI: uvicorn app.main:app --reload
+- Api bedzie dostępne po linkem http://127.0.0.1:8000
+- przejdż do API documentation http://127.0.0.1:8000/docs
+
 
 ### Wymagania
 - Python 3.10+

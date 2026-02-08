@@ -133,6 +133,11 @@ pass
 from fastapi import FastAPI
 from app.routes import router  # import router z routes.py
 
+from pathlib import Path
+MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.joblib"
+
+
+
 app = FastAPI(title="Iris Zad 8.1")
 
 # Podłączenie wszystkich endpointów z routes.py

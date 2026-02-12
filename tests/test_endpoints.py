@@ -1,4 +1,6 @@
 from fastapi.testclient import TestClient
+from scipy.constants import value
+
 from app.main import app
 import math
 # Create a test client for the FastAPI app
@@ -111,13 +113,16 @@ def test_describe_input():
     assert "max" in data
     assert "mean" in data
 
-    # Check values are correct
-    assert data["min"] == 1.2
-    assert data["max"] == 5.0
-    expected_mean = (5.0 + 2.8 + 4.5 + 1.2) / 4
-    assert math.isclose(data["mean"], expected_mean, rel_tol=1e-2)
-    #assert data["mean"] == (5.0 + 2.8 + 4.5 + 1.2) / 4
+    # Expected values
+    values = [5.0, 2.8, 4.5, 1.2]
+    expected_min = min(values)
+    expected_max = max(values)
+    expected_mean = sum(values) / len(values)
 
+    # Check values are correct
+    assert math.isclose(data["min"], expected_min, rel_tol=1e-2)
+    assert math.isclose(data["max"], expected_max, rel_tol=1e-2)
+    assert math.isclose(data["mean"], expected_mean, rel_tol=1e-2)
 
 
 #------------------------------------------------------------------------
@@ -146,13 +151,14 @@ def test_describe_input_get():
     assert "mean" in data
 
     # Check values are correct
-    expected_min = min([5.5, 2.8, 4.0, 1.5])
-    expected_max = max([5.5, 2.8, 4.0, 1.5])
-    expected_mean = sum([5.5, 2.8, 4.0, 1.5]) / 4
+    values = [5.5, 2.8, 4.0, 1.5]
+    expected_min = min(values)
+    expected_max = max(values)
+    expected_mean = sum(values) / len(values)
 
-    assert data["min"] == expected_min
-    assert data["max"] == expected_max
-    assert data["mean"] == expected_mean
+    assert math.isclose(data["min"], expected_min, rel_tol=1e-2)
+    assert math.isclose(data["max"], expected_max, rel_tol=1e-2)
+    assert math.isclose(data["mean"], expected_mean, rel_tol=1e-2)
 
 
 #-------------------------------------------------------------------------

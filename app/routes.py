@@ -67,7 +67,7 @@ def describe_input(data: IrisInput):
     return {
         "min": min(features),
         "max": max(features),
-        "mean": round(sum(features)/len(features), 2)
+        "mean": round(sum(features)/len(features), 3)
     }
 
 
@@ -106,7 +106,7 @@ def describe_input_get(sepal_length: float, sepal_width: float, petal_length: fl
     return {
         "min": min(features),
         "max": max(features),
-        "mean": round(sum(features)/len(features), 2)
+        "mean": round(sum(features)/len(features), 3)
     }
 
 @router.get("/model_info")

@@ -5,3 +5,10 @@ __pycache__/
 .idea/
 *.iml
 Thumbs.db
+.vscode/
+
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trashes
+._*

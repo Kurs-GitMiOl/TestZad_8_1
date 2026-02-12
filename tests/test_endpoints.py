@@ -29,6 +29,37 @@ def test_predict():
 
 # ---------------------------------------------------------------
 
+ # Test /predict with minimum and maximum feature values from Iris dataset
+def test_predict_edge_cases():
+    min_features = {
+        "sepal_length": 4.3,
+        "sepal_width": 2.0,
+        "petal_length": 1.0,
+        "petal_width": 0.1
+    }
+
+    response_min = client.post("/predict", json=min_features)
+    assert response_min.status_code == 200
+    data_min = response_min.json()
+    assert "prediction_class" in data_min
+    assert "prediction_name" in data_min
+
+    # Test /predict with maximum feature values from Iris dataset
+    max_features = {
+        "sepal_length": 7.9,
+        "sepal_width": 4.4,
+        "petal_length": 6.9,
+        "petal_width": 2.5
+    }
+
+    response_max = client.post("/predict", json=max_features)
+    assert response_max.status_code == 200
+    data_max = response_max.json()
+    assert "prediction_class" in data_max
+    assert "prediction_name" in data_max
+
+#----------------------------------------------------------------
+
 # Test /predict_proba:
 # Send flower data and check probabilities sum to ~1
 def test_predict_proba():
@@ -135,3 +166,26 @@ def test_describe_input_invalid():
     })
 
     assert response.status_code == 422
+
+
+# -----------------------------------------------------------------------
+
+
+# Check if endpoint returns basic model configuration
+def test_model_info():
+    response = client.get("/model_info")
+
+    # Check HTTP status code
+    assert response.status_code == 200
+
+    data = response.json()
+
+    # Check response structure
+    assert "model_type" in data
+    assert "kernel" in data
+    assert "probability" in data
+
+    # Check returned values
+    assert data["model_type"] == "SVC"
+    assert data["kernel"] == "linear"
+    assert data["probability"] is True

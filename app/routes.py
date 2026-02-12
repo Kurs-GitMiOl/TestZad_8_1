@@ -1,5 +1,5 @@
 # Imports
-from fastapi import FastAPI
+#from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi import APIRouter
 import joblib
@@ -10,12 +10,13 @@ from pathlib import Path
 # Load the pre-trained model safely regardless of current working directory
 # Loads the trained model safely, no matter the current folder
 
-
 MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.joblib"
 print("Loading model from:", MODEL_PATH)
 model = joblib.load(MODEL_PATH)
 
-app = FastAPI(title="Iris Zad 8.1")
+
+# to remove
+#app = FastAPI(title="Iris Zad 8.1")
 
 
 # Create router
@@ -66,7 +67,7 @@ def describe_input(data: IrisInput):
     return {
         "min": min(features),
         "max": max(features),
-        "mean": sum(features)/len(features)
+        "mean": round(sum(features)/len(features), 2)
     }
 
 
@@ -105,5 +106,17 @@ def describe_input_get(sepal_length: float, sepal_width: float, petal_length: fl
     return {
         "min": min(features),
         "max": max(features),
-        "mean": sum(features)/len(features)
+        "mean": round(sum(features)/len(features), 2)
+    }
+
+@router.get("/model_info")
+def model_info():
+    """
+    Endpoint that returns basic information about the used ML model.
+    It shows model type, kernel type, and if probability is enabled.
+    """
+    return {
+        "model_type": "SVC",
+        "kernel": "linear",
+        "probability": True
     }

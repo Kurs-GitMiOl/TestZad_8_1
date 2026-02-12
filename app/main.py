@@ -1,14 +1,9 @@
-
-
-
-
-
 # Imports
 from fastapi import FastAPI
 from app.routes import router  # import router z routes.py
 from pathlib import Path
 
-# Create the path to the pre-trained Iris model
+# Create the path to the pre-trained Iris model (not necesary here)
 MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.joblib"
 
 

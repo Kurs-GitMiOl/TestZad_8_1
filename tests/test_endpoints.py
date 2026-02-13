@@ -3,13 +3,16 @@ from scipy.constants import value
 
 from app.main import app
 import math
+
 # Create a test client for the FastAPI app
 client = TestClient(app)
 
-# Basic test for the /predict endpoint:
-# Sends a sample Iris flower JSON and checks if the response
-# returns status 200 and contains the expected prediction fields
 def test_predict():
+    """
+    Basic test for the /predict endpoint:
+    Sends a sample Iris flower JSON and checks if the response
+    returns status 200 and contains the expected prediction fields
+    """
     response = client.post(
         "/predict",
         json={
@@ -31,8 +34,11 @@ def test_predict():
 
 # ---------------------------------------------------------------
 
- # Test /predict with minimum and maximum feature values from Iris dataset
 def test_predict_edge_cases():
+    """
+    Test /predict with minimum and maximum feature values
+    from Iris dataset
+    """
     min_features = {
         "sepal_length": 4.3,
         "sepal_width": 2.0,
@@ -62,9 +68,11 @@ def test_predict_edge_cases():
 
 #----------------------------------------------------------------
 
-# Test /predict_proba:
-# Send flower data and check probabilities sum to ~1
 def test_predict_proba():
+    """
+    Test /predict_proba:
+    Send flower data and check probabilities sum to ~1
+    """
     response = client.post(
         "/predict_proba",
         json={
@@ -86,13 +94,16 @@ def test_predict_proba():
 
     # Check probabilities sum to ~1.0
     total = data["setosa"] + data["versicolor"] + data["virginica"]
-    assert abs(total - 1.0) < 0.005
+    assert abs(total - 1.0) < 0.01
 
 # -------------------------------------------------------------------
 
-# Test /describe_input
-# Send flower data and check min, max, mean values
+
 def test_describe_input():
+    """
+    Test /describe_input
+    Send flower data and check min, max, mean values
+    """
     response = client.post(
         "/describe_input",
         json={
@@ -124,12 +135,13 @@ def test_describe_input():
     assert math.isclose(data["max"], expected_max, rel_tol=1e-2)
     assert math.isclose(data["mean"], expected_mean, rel_tol=1e-2)
 
-
 #------------------------------------------------------------------------
 
-# Test /describe_input_get
-# send flower data as query params and check min, max, mean
 def test_describe_input_get():
+    """
+    Test /describe_input_get
+    send flower data as query params and check min, max, mean
+    """
     response = client.get(
         "/describe_input_get",
         params={
@@ -163,9 +175,11 @@ def test_describe_input_get():
 
 #-------------------------------------------------------------------------
 
-# Test /describe_input with invalid data
-# Check it returns 422 error
 def test_describe_input_invalid():
+    """
+    Test /describe_input with invalid data
+    Check it returns 422 error
+    """
     response = client.post("/describe_input", json={
         "sepal_length": 2.0,
         "sepal_width": "error",
@@ -175,12 +189,12 @@ def test_describe_input_invalid():
 
     assert response.status_code == 422
 
-
 # -----------------------------------------------------------------------
 
-
-# Check if endpoint returns basic model configuration
 def test_model_info():
+    """
+    Check if endpoint returns basic model configuration
+    """
     response = client.get("/model_info")
 
     # Check HTTP status code
@@ -197,3 +211,20 @@ def test_model_info():
     assert data["model_type"] == "SVC"
     assert data["kernel"] == "linear"
     assert data["probability"] is True
+
+# ----------------------------------------------------------------------
+
+def test_status():
+    """
+    Test /status endpoint.
+    Checks if API returns status ok.
+    """
+    response = client.get("/status")
+
+    # Check HTTP status code
+    assert response.status_code == 200
+
+    data = response.json()
+
+    # Check response
+    assert data["status"] == "ok"

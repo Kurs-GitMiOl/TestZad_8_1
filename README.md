@@ -248,6 +248,10 @@ Response:
   "probability": true
 }
 
+- Endpoint `/status`
+
+    Simple endpoint to check if the API is running.
+    It returns basic status information.
 
 ## 7.  Tests
 This project includes basic tests for all main endpoints of application.
@@ -260,6 +264,7 @@ The tests are written using pytest and FastAPI’s TestClient.
 - POST /describe_input_invalid – sends wrong data and checks the API returns 422 error
 - GET /describe_input_get – checks min, max, mean values from query parameters
 - GET /model_info – checks model type, kernel type, and probability configuration
+- GET /status – checks API health and verifies response contains status ok
 
 
 How to run tests:

@@ -94,7 +94,6 @@ def predict_proba(input: IrisInput):
     }
 
 
-
 @router.get("/describe_input_get")
 def describe_input_get(sepal_length: float, sepal_width: float, petal_length: float, petal_width: float):
     """
@@ -120,3 +119,7 @@ def model_info():
         "kernel": "linear",
         "probability": True
     }
+
+@router.get("/status")
+def status_check():
+    return {"status": "ok"}

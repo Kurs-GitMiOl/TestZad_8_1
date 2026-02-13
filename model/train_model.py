@@ -47,12 +47,10 @@ model = Pipeline([
 # Train the pipeline on the training data
 model.fit(X_train, y_train)
 
-
 # Check the model accuracy
 # Uncomment print if needed
 accuracy = model.score(X_test, y_test)
 # print(f"\nAccuracy: {accuracy:.3f}")
-
 
 # Save the trained pipeline to a file
 MODEL_PATH = Path(__file__).parent / "iris_model.joblib"

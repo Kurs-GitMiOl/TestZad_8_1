@@ -186,8 +186,8 @@ Request:
 
 Response:
 {
-  "setosa": 0.008,
-  "versicolor": 0.973,
+  "setosa": 0.01,
+  "versicolor": 0.971,
   "virginica": 0.019
 }
 
@@ -203,9 +203,9 @@ Request:
 
 Response:
 {
-  "setosa": 0.013,
-  "versicolor": 0.059,
-  "virginica": 0.928
+  "setosa": 0.012,
+  "versicolor": 0.082,
+  "virginica": 0.906
 }
 
 

@@ -82,7 +82,6 @@ def predict_proba(input: IrisInput):
         input.petal_width
     ]]
 
-
     probabilities = model.predict_proba(features)[0]
     return {
         "setosa": round(float(probabilities[0]), 3),
@@ -119,4 +118,8 @@ def model_info():
 
 @router.get("/status")
 def status_check():
+    """
+    Simple status check endpoint.
+    Returns 'ok' if the API is running.
+    """
     return {"status": "ok"}

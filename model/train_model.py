@@ -1,16 +1,15 @@
 # Imports
-
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 import joblib
 import pandas as pd
 from pathlib import Path
+# from sklearn.decomposition import PCA # uncomment if you want to reduce dimensions
 
-# See what the Iris data looks like
+# Uncomment the following prints to see how the Iris data looks
 
 iris = load_iris()
 
@@ -19,12 +18,12 @@ df = pd.DataFrame(iris['data'], columns=iris['feature_names'])
 df['species'] = [iris['target_names'][i] for i in iris['target']]
 
 # Preview the first 5 rows
-print("\nPreview the first 5 rows")
-print(df.head(5))
+# print("\nPreview the first 5 rows")
+# print(df.head(5))
 
 # Basic statistics of the dataset
-print("\nBasic statistics of the datase")
-print(df.describe())
+# print("\nBasic statistics of the datase")
+# print(df.describe())
 
 
 # Load Iris data (features and labels) as DataFrame
@@ -38,10 +37,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # Pipeline: feature scaling + SVM classifier
-# ('pca', PCA(n_components=3)) add to reduce dimentions
+# ('pca', PCA(n_components=3)) # add PCA to reduce dimensions if needed
 model = Pipeline([
-    ('scaler', StandardScaler()),   # skalowanie cech
-    ('clf', SVC(kernel='linear', probability=True))   # klasyfikator SVM
+    ('scaler', StandardScaler()),                   # Feature scaling
+    ('clf', SVC(kernel='linear', probability=True)) # SVM classifier
 ])
 
 
@@ -50,12 +49,14 @@ model.fit(X_train, y_train)
 
 
 # Check the model accuracy
-print("\nAccuracy:", model.score(X_test, y_test))
+# Uncomment print if needed
+accuracy = model.score(X_test, y_test)
+# print(f"\nAccuracy: {accuracy:.3f}")
 
 
 # Save the trained pipeline to a file
 MODEL_PATH = Path(__file__).parent / "iris_model.joblib"
 joblib.dump(model, MODEL_PATH)
-print(f"Model saved to: {MODEL_PATH}")
+# print(f"Model saved to: {MODEL_PATH}")
 
-print("Model saved to model directory model/iris_model.joblib")
+# print("Model saved to model directory model/iris_model.joblib")

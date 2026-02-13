@@ -1,5 +1,5 @@
 # Imports
-#from fastapi import FastAPI
+
 from pydantic import BaseModel
 from fastapi import APIRouter
 import joblib
@@ -11,17 +11,13 @@ from pathlib import Path
 # Loads the trained model safely, no matter the current folder
 
 MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "iris_model.joblib"
-print("Loading model from:", MODEL_PATH)
+
+# Contrlol info print
+# print("Loading model from:", MODEL_PATH)
 model = joblib.load(MODEL_PATH)
-
-
-# to remove
-#app = FastAPI(title="Iris Zad 8.1")
-
 
 # Create router
 router = APIRouter()
-
 
 # Input data schema
 class IrisInput(BaseModel):
@@ -29,6 +25,7 @@ class IrisInput(BaseModel):
     sepal_width: float
     petal_length: float
     petal_width: float
+
 
 
 @router.post("/predict")
@@ -88,9 +85,9 @@ def predict_proba(input: IrisInput):
 
     probabilities = model.predict_proba(features)[0]
     return {
-        "setosa": float(probabilities[0]),
-        "versicolor": float(probabilities[1]),
-        "virginica": float(probabilities[2])
+        "setosa": round(float(probabilities[0]), 3),
+        "versicolor": round(float(probabilities[1]), 3),
+        "virginica": round(float(probabilities[2]), 3)
     }
 
 

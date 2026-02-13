@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-from scipy.constants import value
 
 from app.main import app
 import math
@@ -33,6 +32,22 @@ def test_predict():
     assert "prediction_name" in data
 
 # ---------------------------------------------------------------
+
+def test_predict_missing_field():
+    """
+    Test /predict endpoint with missing field.
+    Checks if API returns 422  when a required input is missing.
+    """
+    response = client.post("/predict", json={
+        "sepal_length": 5.0,
+        "sepal_width": 3.4,
+        "petal_length": 1.5
+    })
+
+    # Check HTTP status code
+    assert response.status_code == 422
+
+#------------------------------------------------------------------
 
 def test_predict_edge_cases():
     """
@@ -97,7 +112,6 @@ def test_predict_proba():
     assert abs(total - 1.0) < 0.01
 
 # -------------------------------------------------------------------
-
 
 def test_describe_input():
     """

@@ -66,9 +66,9 @@ Example input JSON:
 - Python 3.10+
 - uv
 
-# 6. Endpoints description and examples
+## 6. Endpoints description and examples
 
-- Endpoint `/predict`
+## - Endpoint `/predict`
 
     Prediction endpoint for iris flower classification.
     It takes flower features in JSON format, predicts the flower class,
@@ -126,7 +126,7 @@ Response:
 }
 
 
-- Endpoint `/describe_input` 
+## - Endpoint `/describe_input` 
 
     Endpoint that describes iris flower features.
     It takes flower features in JSON, calculates the minimum, maximum, and mean values, and returns them.
@@ -167,10 +167,11 @@ Response:
   "mean": 3.7
 }
 
-- Endpoint `/predict_proba`
+## - Endpoint `/predict_proba`
 
     Return prediction probabilities for each Iris flower class.
     The endpoint takes flower features and returns a probability for each class.
+    Probabilities are rounded to 3 decimal places.
 
 ### Example JSON requests to `/predict_proba`
 1. Example
@@ -185,9 +186,9 @@ Request:
 
 Response:
 {
-  "setosa": 0.0,
-  "versicolor": 0.85,
-  "virginica": 0.15
+  "setosa": 0.008,
+  "versicolor": 0.973,
+  "virginica": 0.019
 }
 
 2. Example
@@ -202,13 +203,13 @@ Request:
 
 Response:
 {
-  "setosa": 0.0,
-  "versicolor": 0.05,
-  "virginica": 0.95
+  "setosa": 0.013,
+  "versicolor": 0.059,
+  "virginica": 0.928
 }
 
 
-- Endpoint `/describe_input_get`
+## - Endpoint `/describe_input_get`
 
     Describe Iris input values using query parameters.
     The endpoint returns min, max, and mean values of the input features.
@@ -217,6 +218,8 @@ Response:
 1. Example
 
 http://127.0.0.1:8000/describe_input_get?sepal_length=6.0&sepal_width=2.8&petal_length=4.5&petal_width=1.5
+
+Use the link above or write input values from link into field Description in: http://127.0.0.1:8000/docs
 
 Response:
 {
@@ -228,6 +231,8 @@ Response:
 
 http://127.0.0.1:8000/describe_input_get?sepal_length=5.4&sepal_width=3.2&petal_length=1.6&petal_width=0.4
 
+Use the link above or write input values from link into field Description in: http://127.0.0.1:8000/docs
+
 Response:
 {
   "min": 0.4,
@@ -235,7 +240,7 @@ Response:
   "mean": 2.65
 }
 
-- Endpoint `/model_info`
+## - Endpoint `/model_info`
 
     Returns basic information about the used machine learning model.
     It shows model type, kernel type, and probability setting.
@@ -248,16 +253,22 @@ Response:
   "probability": true
 }
 
-- Endpoint `/status`
+## - Endpoint `/status`
 
     Simple endpoint to check if the API is running.
     It returns basic status information.
+
+Response:
+{
+  "status": "ok"
+}
 
 ## 7.  Tests
 This project includes basic tests for all main endpoints of application.
 The tests are written using pytest and FastAPI’s TestClient.
 
 - POST /predict – checks prediction_class and prediction_name
+- POST /predict_missing_field – tests the /predict endpoint when a required field is missing.
 - POST /predict_edge_case – test with minimum and maximum Iris feature values
 - POST /predict_proba – checks probabilities for each class and that they sum to ~1
 - POST /describe_input – checks min, max, mean values.

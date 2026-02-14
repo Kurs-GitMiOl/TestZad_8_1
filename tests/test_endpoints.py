@@ -121,7 +121,7 @@ def test_predict_proba():
             "sepal_length": 6.0,
             "sepal_width": 3.9,
             "petal_length": 4.5,
-            "petal_width": 2.6
+            "petal_width": 2.5
         }
     )
 

@@ -2,9 +2,13 @@
 
 ## 1. Project description
 
-The project shows a simple AI system shared as a FastAPI web service.
+This system is a simple AI service shared as a FastAPI web service.
 The system uses a previously trained classification model
-to predict the Iris flower species based on given features.
+That system helps identify the species of an Iris flower.
+By providing measurements of the flower’s sepals and petals, users can quickly get a prediction of its species.  
+It solves the problem of classifying Iris flowers based on features,
+making it easy to analyze and understand data from the Iris dataset.
+
 
 ## 2. Used model
 - Type: SVM Classifier (Support Vector Machine
@@ -206,8 +210,8 @@ Request:
 Response:
 {
   "setosa": 0.01,
-  "versicolor": 0.971,
-  "virginica": 0.019
+  "versicolor": 0.97,
+  "virginica": 0.02
 }
 
 2. Example
@@ -223,8 +227,8 @@ Request:
 Response:
 {
   "setosa": 0.012,
-  "versicolor": 0.082,
-  "virginica": 0.906
+  "versicolor": 0.076,
+  "virginica": 0.911
 }
 
 
@@ -287,7 +291,7 @@ This project includes basic tests for all main endpoints of application.
 The tests are written using pytest and FastAPI’s TestClient.
 
 - POST /predict – checks prediction_class and prediction_name
-- POST //predict_is_satosa - if the predicted class is setosa, it returns true, otherwise, it returns false
+- POST /predict_is_satosa - if the predicted class is setosa, it returns true, otherwise, it returns false
 - POST /predict_missing_field – tests the /predict endpoint when a required field is missing.
 - POST /predict_edge_case – test with minimum and maximum Iris feature values
 - POST /predict_proba – checks probabilities for each class and that they sum to ~1

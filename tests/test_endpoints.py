@@ -33,6 +33,33 @@ def test_predict():
 
 # ---------------------------------------------------------------
 
+def test_predictis_is_setosa():
+    """
+    Test /predict_is_setosa endpoint.
+    Checks if API returns a boolean value indicating whether the flower is setosa.
+    """
+    response = client.post("/predict_is_setosa", json={
+        "sepal_length": 5.0,
+        "sepal_width": 3.4,
+        "petal_length": 1.5,
+        "petal_width": 0.2
+    })
+
+    # Check HTTP status code
+    assert response.status_code == 200
+
+    data = response.json()
+
+    # Check response structure
+    assert "is_setosa" in data
+
+    # Check value type
+    assert isinstance(data["is_setosa"], bool)
+
+
+
+# ---------------------------------------------------------------
+
 def test_predict_missing_field():
     """
     Test /predict endpoint with missing field.

@@ -52,6 +52,26 @@ def predict(data: IrisInput):
         "prediction_name": target_names[prediction]
     }
 
+@router.post("/predict_is_setosa")
+def predict_is_setosa(data: IrisInput):
+    """
+    Prediction endpoint that checks if the iris flower is Setosa.
+    It takes flower features in JSON format and returns True if the predicted class is Setosa,
+    otherwise False.
+    """
+    features = np.array([[
+        data.sepal_length,
+        data.sepal_width,
+        data.petal_length,
+        data.petal_width
+    ]])
+
+    prediction = model.predict(features)[0]  # 0=setosa, 1=versicolor, 2=virginica
+
+    return {
+        "is_setosa": bool(prediction == 0)
+    }
+
 
 @router.post("/describe_input")
 def describe_input(data: IrisInput):

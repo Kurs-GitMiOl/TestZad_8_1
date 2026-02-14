@@ -125,6 +125,25 @@ Response:
   "prediction_name": "virginica"
 }
 
+## - Endpoint `/predict_is_setosa`
+
+    Prediction endpoint that checks if the iris flower is Setosa.
+    It takes flower features in JSON format and returns True if the predicted class is Setosa,
+    otherwise False.
+
+### Example JSON requests to `/predict_is_setosa`
+Request:
+{
+  "sepal_length": 5.1,
+  "sepal_width": 3.5,
+  "petal_length": 1.4,
+  "petal_width": 0.2
+}
+
+Response:
+{
+  "is_setosa": true
+}
 
 ## - Endpoint `/describe_input` 
 
@@ -268,6 +287,7 @@ This project includes basic tests for all main endpoints of application.
 The tests are written using pytest and FastAPI’s TestClient.
 
 - POST /predict – checks prediction_class and prediction_name
+- POST //predict_is_satosa - if the predicted class is setosa, it returns true, otherwise, it returns false
 - POST /predict_missing_field – tests the /predict endpoint when a required field is missing.
 - POST /predict_edge_case – test with minimum and maximum Iris feature values
 - POST /predict_proba – checks probabilities for each class and that they sum to ~1

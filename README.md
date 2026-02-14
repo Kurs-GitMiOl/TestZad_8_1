@@ -59,12 +59,24 @@ Example input JSON:
 
 - open the terminal and go to the project folder
 - create a virtual environment: python -m venv .venv
-- activate it: .venv\Scripts\activate
+- activate it: .venv\Scripts\activate or macOS\Linux source .venv/bin/activate
 - install dependencies: uv sync
 - start the FastAPI server: uvicorn app.main:app --reload
 - the API will be available at: http://127.0.0.1:8000
 - open the API documentation at: http://127.0.0.1:8000/docs
+- choose endpoint, next choose Try it out, then choose execute
 - alternative documentation is available at: http://127.0.0.1:8000/redoc
+- to stop server us CTRL + C
+- 
+- ### Restarting the API
+- open the terminal and go to the project folder
+- activate it: .venv\Scripts\activate or on macOS\Linux source .venv/bin/activate
+- start the FastAPI server: uvicorn app.main:app --reload
+- the API will be available at: http://127.0.0.1:8000
+- open the API documentation at: http://127.0.0.1:8000/docs
+- choose endpoint, next choose Try it out, then choose Execute
+- alternative documentation is available at: http://127.0.0.1:8000/redoc
+- to stop server us CTRL + C
 
 ## 5. Requirements
 - Python 3.10+
